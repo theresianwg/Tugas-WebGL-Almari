@@ -21,7 +21,7 @@ async function main() {
     const parts = obj.geometries.map(({ data }) => {
         if (data.color) {
             if (data.position.length === data.color.length) {
-                data.color = { numComponents: 3, data: data.color };
+                data.color = { numComponents: 4, data: data.color };
             }
         } else {
             data.color = { value: [1, 1, 1, 1] };
@@ -30,7 +30,7 @@ async function main() {
         const bufferInfo = webglUtils.createBufferInfoFromArrays(gl, data);
         return {
             material: {
-                u_diffuse: [0.74, 0.58, 0.98, 1],
+                u_diffuse: [0.85, 0.6, 0.35, 1],
             },
             bufferInfo,
         };
@@ -43,8 +43,8 @@ async function main() {
         -1
     );
     const cameraTarget = [0, 0, 0];
-    const radius = m4.length(range) * 1.2;
-    const cameraPosition = m4.addVectors(cameraTarget, [0, 3, radius]);
+    const radius = m4.length(range) * 0.9;
+    const cameraPosition = m4.addVectors(cameraTarget, [2, 2, radius]);
     const zNear = radius / 100;
     const zFar = radius * 3;
 
@@ -56,7 +56,7 @@ async function main() {
         gl.enable(gl.DEPTH_TEST);
         gl.enable(gl.CULL_FACE);
 
-        const fieldOfViewRadians = degToRad(60);
+        const fieldOfViewRadians = degToRad(55);
         const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
         const projection = m4.perspective(
             fieldOfViewRadians,
